@@ -1,130 +1,246 @@
-# Multimodal Smart Document & Invoice Intelligence Hub
+# 📑 Multimodal Smart Document & Invoice Intelligence Hub
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Google Gemini](https://img.shields.io/badge/Google_Gemini-Vision_AI-orange?style=for-the-badge&logo=google&logoColor=white)](https://aistudio.google.com/)
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+<div align="center">
 
-An AI-powered financial document auditor that ingests raw receipts, invoices, and utility bills (images and PDFs), extracts structured line-item data via Gemini Vision, automatically audits the calculations for arithmetic and tax discrepancies, provides an interactive reconciliation workbench, visualizes spending across categories, and exports clean audit data to CSV and multi-sheet XLSX.
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-hackathon--pink--omega.vercel.app-f97316?style=for-the-badge&logo=vercel&logoColor=white)](https://hackathon-pink-omega.vercel.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-shivankshetty8%2FHackathon-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/shivankshetty8/Hackathon)
+[![Next.js](https://img.shields.io/badge/Next.js-16.4-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Google Gen AI](https://img.shields.io/badge/Gemini_Vision-Multimodal_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://aistudio.google.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
----
+<p align="center">
+  <b>An enterprise-grade forensic financial document auditor powered by Google Gemini Vision AI and deterministic mathematics.</b><br/>
+  Ingests raw invoices, receipts, and utility bills (PDFs and images), extracts structured data with zero hallucination, audits calculations for vendor overcharges and tax discrepancies, provides an interactive split-pane reconciliation workbench, and exports clean data to CSV and multi-sheet Excel workbooks.
+</p>
 
-## 🚀 Live Deployment
+[**Explore Live App »**](https://hackathon-pink-omega.vercel.app/) · [**View Source Code »**](https://github.com/shivankshetty8/Hackathon) · [**Report Issue »**](https://github.com/shivankshetty8/Hackathon/issues)
 
-The live application is deployed and accessible at:
-> **Live URL:** [Visit Live Application](https://github.com/shivankshetty8/Hackathon) *(Set via Repository Homepage & Deployments)*
-
----
-
-## 🎯 Problem Statement & Forensic Philosophy
-
-Traditional OCR and naive LLM wrappers blindly trust printed numbers or allow generative AI models to hallucinate invoice addition. 
-
-**Invoice Intelligence Hub** solves this through a hybrid architecture:
-1. **Multimodal LLMs for Vision Extraction:** Gemini Vision extracts printed numbers with exact fidelity without attempting to fix errors on the document.
-2. **Deterministic JavaScript for Financial Auditing:** Every calculation ($Quantity \times Unit Price$, Subtotal sums, Tax rates, Shipping, and Grand Totals) is audited line-by-line using deterministic arithmetic in pure TypeScript.
+</div>
 
 ---
 
-## ⚡ Core Features
+## 🌐 Live Application Links
 
-### 1. Multimodal Document Parsing & Fallback Cascade
-* Ingests **PDF**, **PNG**, **JPG**, and **WEBP** documents.
-* Built using the official `@google/genai` SDK with strict `responseSchema` JSON generation.
-* **Intelligent Multi-Model Fallback Cascade:**
-  ```
-  gemini-3.5-flash ➔ gemini-3.8-flash ➔ gemini-flash-latest ➔ gemini-2.5-pro ➔ gemini-3.7-flash ➔ gemini-3-flash-preview ➔ gemini-2.5-flash-lite ➔ gemini-2.5-flash
-  ```
-  Automatically shifts down to available models if rate limits (429), quota limits, or transient outages occur.
-
-### 2. Deterministic Math & Tax Audit Engine
-* **Line-Level Verification:** Computes `quantity × unitPrice` and flags any discrepancies against printed values exceeding $0.01.
-* **Subtotal Audit:** Sums all verified line items and compares against printed subtotal (flags differences > $0.02).
-* **Tax Sanity Check:** Computes effective tax rate `(tax / subtotal) * 100` and flags warnings if tax rate exceeds 30% or is anomalous.
-* **Grand Total Verification:** Validates `calculatedSubtotal + tax + shipping - discount` against the printed total.
-* **Audit Badges:**
-  * 🟢 **MATCH:** 100% calculation and tax match.
-  * 🔴 **DISCREPANCY:** Vendor math mismatch or calculation error detected.
-  * 🟠 **WARNING:** Tax rate anomaly or missing document metadata.
-
-### 3. Interactive Split-Pane Reconciliation Workbench
-* **Document Viewer:** Zoom (up to 300%), rotate (90° increments), and pan preview.
-* **Editable Reconciliation Table:** Edit quantities, prices, descriptions, and categories with real-time recalculation on every keystroke.
-* **"Auto-Fix Printed Totals" Button:** One-click snap to correct calculated values.
-* **Comparison Summary:** Side-by-side comparison of printed figures versus audited calculations with delta indicators.
-
-### 4. Spending & Tax Analytics
-* **Donut Chart:** Breakdown of expenditure across 7 core expense categories (*Software & SaaS, Utilities, Office Supplies, Travel & Meals, Hardware, Professional Services, Other*).
-* **Stacked Bar Chart:** Vendor spend comparison showing Subtotal vs. Tax vs. Discrepancy gap.
-* **Executive KPI Cards:** Total audited spend, total vendor overcharges caught, and average effective tax rate.
-
-### 5. Multi-Format Export Engine
-* **CSV Export:** Flattened line items with document metadata.
-* **Multi-Sheet Excel (.xlsx) Workbook:**
-  * Sheet 1: *Summary & Audit Status*
-  * Sheet 2: *Line Items Breakdown*
-  * Sheet 3: *Tax & Discrepancy Log*
+| Destination | Link | Status |
+| :--- | :--- | :---: |
+| **Production Deployment (Vercel)** | [https://hackathon-pink-omega.vercel.app](https://hackathon-pink-omega.vercel.app/) | ![Active](https://img.shields.io/badge/Status-Active%20✓-emerald) |
+| **GitHub Repository** | [https://github.com/shivankshetty8/Hackathon](https://github.com/shivankshetty8/Hackathon) | ![Main](https://img.shields.io/badge/Branch-main-orange) |
 
 ---
 
-## 🛠️ Tech Stack
+## 💡 The Core Problem & Forensic Philosophy
 
-* **Framework:** Next.js 16 (App Router, React 19)
-* **Language:** TypeScript 5
-* **Styling:** Tailwind CSS (Dark obsidian `#09090b` with warm orange `#f97316` accents)
-* **Typography:** Poppins (UI body) & JetBrains Mono (Financial numerals & tabular figures)
-* **Icons:** `lucide-react`
-* **Charts:** `recharts`
-* **Spreadsheet Export:** `xlsx` (SheetJS)
-* **AI Model:** Google Gen AI SDK (`@google/genai`)
+In commercial enterprise operations, accounts payable teams process thousands of invoices each month. Manual auditing is slow and error-prone, while traditional OCR systems struggle with varying invoice formats.
 
----
+Crucially, **naive generative AI wrappers fail at financial auditing** because Large Language Models are probabilistic and prone to mathematical hallucinations—frequently "fixing" or making up calculations instead of catching billing mistakes.
 
-## 📦 Getting Started Locally
+### 🛡️ The Hybrid Architecture Solution
+**Invoice Intelligence Hub** separates **perception** from **computation**:
+1. **Perception (Gemini Vision AI):** Extracts printed numbers with literal fidelity. It is strictly instructed *never* to recalculate or fix math errors on the document.
+2. **Computation (Deterministic TypeScript Engine):** Every calculation ($\text{Quantity} \times \text{Unit Price}$, Subtotal sum, Tax rates, Discounts, Shipping, and Grand Totals) is audited line-by-line using deterministic, IEEE-754 rounded arithmetic.
 
-### Prerequisites
-* Node.js 18+ installed
-* Google Gemini API Key ([Get a free key from Google AI Studio](https://aistudio.google.com/apikey))
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/shivankshetty8/Hackathon.git
-   cd Hackathon
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Configure Environment Variables:**
-   Create a `.env.local` file in the root directory:
-   ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
-   ```
-
-4. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open in browser:**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+```
+┌───────────────────────────────┐     ┌──────────────────────────────┐
+│  Raw Document (PDF / Images)  │ ──► │  Gemini Vision API Route     │
+└───────────────────────────────┘     │  (Literal Text & Numbers)    │
+                                      └──────────────┬───────────────┘
+                                                     ▼
+┌───────────────────────────────┐     ┌──────────────────────────────┐
+│  Split-Pane Workbench & Export│ ◄── │  Deterministic Audit Engine  │
+│  (XLSX / CSV / Interactive UI)│     │  (Pure JS Math Recalculation)│
+└───────────────────────────────┘     └──────────────────────────────┘
+```
 
 ---
 
-## 🚢 Deployment on Vercel
+## ⚡ Key Modules & Capabilities
 
-1. Push your repository to GitHub (`https://github.com/shivankshetty8/Hackathon.git`).
-2. Go to [Vercel](https://vercel.com/new) and import the repository.
-3. Add the environment variable:
-   * `GEMINI_API_KEY`: Your Google Gemini API key.
-4. Click **Deploy**. Vercel will build and assign your production URL.
+### 1. Multimodal Document Ingestion & Multi-Model Fallback Cascade
+* **Broad Media Support:** Natively processes `application/pdf`, `image/png`, `image/jpeg`, and `image/webp`.
+* **Zero-Failure Fallback Cascade:** To prevent quota exhaustion, rate limits (`429`), or transient model deprecation from halting enterprise workflows, the backend automatically cascades through an 8-tier Gemini fallback chain:
+  $$\text{gemini-3.5-flash} \longrightarrow \text{gemini-3.8-flash} \longrightarrow \text{gemini-flash-latest} \longrightarrow \text{gemini-2.5-pro} \longrightarrow \text{gemini-3.7-flash} \longrightarrow \dots$$
+* **Strict Type Enforcement:** Enforces JSON outputs via `responseSchema` and `responseMimeType: "application/json"`.
+
+### 2. Deterministic Math & Tax Auditing Engine
+* **Line-Level Multiplication Check:** Computes $\text{calculatedAmount} = \text{roundToTwo}(\text{qty} \times \text{unitPrice})$. Flags an error if $|\text{extractedAmount} - \text{calculatedAmount}| > \$0.01$.
+* **Subtotal Aggregation Check:** Sums all verified line items. Flags discrepancies exceeding $\$0.02$.
+* **Tax Sanity Benchmarking:** Calculates $\text{effectiveTaxRate} = (\frac{\text{tax}}{\text{calculatedSubtotal}}) \times 100$. Flags an amber warning if tax is anomalous ($> 30\%$) or missing.
+* **Grand Total Balancing:** Validates $\text{calculatedGrandTotal} = \text{subtotal} + \text{tax} + \text{shipping} - \text{discount}$ against printed invoice figures.
+* **Badge System:**
+  * 🟢 **MATCH:** All line items, taxes, and totals balance to the exact cent.
+  * 🔴 **DISCREPANCY:** Highlights exact vendor calculation overcharges or addition errors.
+  * 🟠 **WARNING:** Arithmetic checks out, but anomalous tax or missing invoice metadata detected.
+
+### 3. Split-Pane Interactive Reconciliation Workbench
+* **Document Viewer (Left Pane):** High-resolution image/PDF viewer with zoom controls (up to 300%), $90^\circ$ clockwise rotation, pan dragging, and key metadata badges (Vendor, Invoice #, Date, Currency).
+* **Editable Reconciliation Table (Right Pane):**
+  * Editable fields: Description, Expense Category dropdown, Quantity, Unit Price, Printed Total.
+  * Read-only Audited Total column showing deterministic calculation.
+  * Real-time calculation triggers on every keystroke.
+* **"Auto-Fix Printed Totals" Action:** One-click utility that automatically snaps mismatched printed values to their audited sums.
+* **Executive Comparison Footer:** Side-by-side reconciliation of printed values vs. audited values with delta indicators ($+\$10.00$, $-\$4.50$).
+
+### 4. Interactive Spending & Tax Analytics
+* **Category Breakdown (Donut Chart):** Interactive visualization across 7 expense categories (*Software & SaaS, Utilities, Office Supplies, Travel & Meals, Hardware, Professional Services, Other*).
+* **Vendor & Tax Comparison (Stacked Bar Chart):** Compares Subtotal vs. Tax vs. Discrepancy gap per vendor.
+* **Executive KPI Cards:**
+  * *Total Audited Spend*
+  * *Vendor Discrepancies Caught (Dollar amount & Count)*
+  * *Average Effective Tax Rate*
+  * *Reconciled Document Count with status breakdown*
+
+### 5. Multi-Sheet Excel & CSV Export Engine
+* **CSV Export:** Flattens all line items with document metadata for standard accounting import.
+* **Formatted Multi-Sheet XLSX (SheetJS):**
+  * **Sheet 1 (`Summary & Audit Status`):** High-level overview of invoices, audit status, totals, and discrepancies.
+  * **Sheet 2 (`Line Items Detail`):** Itemized breakdown with descriptions, categories, quantities, prices, and error flags.
+  * **Sheet 3 (`Tax & Discrepancy Log`):** Detailed log of all flagged mathematical discrepancies and tax anomalies.
+
+### 6. Design System & Typography
+* **Color Palette:** Pure dark obsidian (`#09090b`), elevated card containers (`#121215`), border dividers (`#27272a`), and warm energetic orange accents (`#f97316`). Zero distracting purple gradients.
+* **Typography:** **Poppins** for clean modern headings and body prose, paired with **JetBrains Mono** for numeric tabular amounts, currency symbols, and mathematical deltas.
+
+---
+
+## 🏗️ System Architecture & Data Flow
+
+```mermaid
+flowchart TD
+    A["Raw Document Upload\n(PDF / PNG / JPG / WEBP)"] --> B["UploadZone Component\n(Batch Queue & Progress)"]
+    B --> C["/api/parse-document\n(Next.js Route Handler)"]
+    C --> D{"Gemini Vision AI\nFallback Cascade"}
+    D -->|"Primary"| E["gemini-3.5-flash"]
+    D -->|"Fallback 1"| F["gemini-3.8-flash"]
+    D -->|"Fallback 2"| G["gemini-flash-latest / 2.5-pro"]
+    E & F & G --> H["Structured JSON Data\n(Exact Printed Values)"]
+    H --> I["Deterministic Audit Engine\n(lib/auditEngine.ts)"]
+    I --> J["AuditResult\n(MATCH / DISCREPANCY / WARNING)"]
+    J --> K["Split-Pane Audit Workbench"]
+    J --> L["Spending & Tax Analytics\n(Recharts)"]
+    K --> M["Real-Time Live Editing\n(Instant Recalculation)"]
+    M --> I
+    K & L --> N["Export Engine\n(Native CSV / Multi-Sheet XLSX)"]
+```
+
+---
+
+## 🧪 Demonstration Test Scenarios
+
+The repository includes realistic test scenarios to verify forensic auditing capabilities:
+
+| Test Invoice | Category | Injected Scenario | Auditor Response |
+| :--- | :--- | :--- | :---: |
+| **CloudScale AWS Hosting** | Infrastructure | 100% clean arithmetic and 8.25% standard tax. | 🟢 **MATCH** |
+| **Apex Office Supplies** | Procurement | Line 2 item ($4 \times \$12.50$) printed as $\$60.00$ instead of $\$50.00$. Grand total overcharged by $\$10.00$. | 🔴 **DISCREPANCY** (Flags $\$10.00$ overcharge) |
+| **Metro City Power & Electric** | Utility | Valid line item math, but effective tax rate calculated at **34.03%**. | 🟠 **WARNING** (Flags anomalous tax rate) |
+
+---
+
+## 🛠️ Tech Stack & Dependencies
+
+| Layer | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Core Framework** | [Next.js 16](https://nextjs.org/) (App Router) | High-performance full-stack React framework |
+| **Language** | [TypeScript 5](https://www.typescriptlang.org/) | Strict type safety across document schemas and audit states |
+| **AI / Multimodal** | [`@google/genai`](https://www.npmjs.com/package/@google/genai) | Official Google Gen AI SDK for Gemini Vision models |
+| **Styling & UI** | [Tailwind CSS 3.4](https://tailwindcss.com/) | Bespoke dark-mode styling with Poppins and JetBrains Mono fonts |
+| **Icons** | [`lucide-react`](https://lucide.dev/) | Clean, accessible iconography |
+| **Data Visualization** | [`recharts`](https://recharts.org/) | Responsive SVG Donut Charts and Stacked Bar Charts |
+| **Spreadsheet Engine** | [`xlsx` (SheetJS)](https://sheetjs.com/) | Client-side generation of styled multi-sheet Excel workbooks |
+| **Hosting & CI/CD** | [Vercel](https://vercel.com/) | Global Edge deployment with automatic Git CI/CD |
+
+---
+
+## 📐 Data Contracts (`src/types/invoice.ts`)
+
+```typescript
+export type ExpenseCategory =
+  | 'Software & SaaS'
+  | 'Utilities'
+  | 'Office Supplies'
+  | 'Travel & Meals'
+  | 'Hardware & Equipment'
+  | 'Professional Services'
+  | 'Other';
+
+export interface LineItem {
+  id: string;
+  description: string;
+  category: ExpenseCategory;
+  quantity: number;
+  unitPrice: number;
+  extractedAmount: number;   // Literal printed total
+  calculatedAmount: number;  // Deterministic (quantity * unitPrice)
+  hasLineDiscrepancy: boolean;
+}
+
+export interface AuditResult {
+  calculatedSubtotal: number;
+  subtotalDiscrepancy: number;
+  calculatedGrandTotal: number;
+  grandTotalDiscrepancy: number;
+  effectiveTaxRate: number;
+  status: 'MATCH' | 'DISCREPANCY' | 'WARNING';
+  flags: string[];           // Forensic findings
+}
+```
+
+---
+
+## 💻 Local Setup & Development
+
+Follow these steps to run the project locally on your machine:
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/shivankshetty8/Hackathon.git
+cd Hackathon
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+Create a `.env.local` file in the project root:
+```env
+# Get your free key at https://aistudio.google.com/apikey
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+### 4. Run the development server
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### 5. Build for production
+```bash
+npm run build
+npm run start
+```
+
+---
+
+## 🏆 Hackathon Submission Highlights
+
+* ✅ **End-to-End Functional:** Zero mock placeholders, zero dummy stubs, and fully functioning multimodal pipeline.
+* ✅ **Dual AI-Deterministic Architecture:** Prevents hallucinated financial figures by coupling Gemini Vision with deterministic calculations.
+* ✅ **Multi-Model Reliability:** Built-in auto-fallback cascade guarantees high availability even under rate limits.
+* ✅ **Interactive Reconciliation:** Allows financial controllers to audit, edit, and auto-fix discrepancies with live updates.
+* ✅ **Production Deployed:** Deployed and verified on Vercel at [hackathon-pink-omega.vercel.app](https://hackathon-pink-omega.vercel.app/).
+
+---
+
+## 👤 Author
+
+* **Shivank Shetty** — [GitHub Profile](https://github.com/shivankshetty8)
 
 ---
 
 ## 📄 License
-MIT License. Built for the Hackathon.
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
