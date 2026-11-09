@@ -1,22 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #09090b;
-  --foreground: #fafafa;
+  --background: #FAF6F0;
+  --foreground: #121214;
+  --cream-base: #FAF6F0;
+  --cream-card: #FFFFFF;
+  --cream-muted: #F4EFE6;
+  --cream-border: #E4DBD0;
+  --burnt-orange: #C2410C;
+  --charcoal-black: #121214;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #27272a transparent;
+  scrollbar-color: #D4C9BC transparent;
 }
 
 *::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 *::-webkit-scrollbar-track {
@@ -24,23 +30,26 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #27272a;
+  background-color: #D4C9BC;
   border-radius: 9999px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #3f3f46;
+  background-color: #C2410C;
 }
 
 body {
-  background: #09090b;
-  color: #fafafa;
-  font-family: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #FAF6F0;
+  color: #121214;
+  font-family: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Monospace numerals */
+.font-serif {
+  font-family: var(--font-serif), 'Newsreader', Georgia, Cambria, serif;
+}
+
 .font-mono {
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
 }
@@ -49,19 +58,16 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Hide input spinners */
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* Subtle border transitions and shadows */
+.card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(18, 18, 20, 0.04), 0 2px 6px -1px rgba(18, 18, 20, 0.02);
 }
 
-input[type='number'] {
-  -moz-appearance: textfield;
+.card-shadow-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Subtle clean card style */
-.pro-card {
-  background: #121215;
-  border: 1px solid #27272a;
+.card-shadow-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -4px rgba(194, 65, 12, 0.08), 0 4px 12px -2px rgba(18, 18, 20, 0.04);
 }
