@@ -219,17 +219,17 @@ export default function UploadZone({
 
   return (
     <div className="space-y-3">
-      {/* Sleek Professional Drop Zone (No Demo Buttons) */}
+      {/* Sleek Professional Cream & Orange Drop Zone */}
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onClick={() => fileInputRef.current?.click()}
         className={cn(
-          'relative border border-dashed rounded-2xl p-7 text-center cursor-pointer transition-all duration-200 group',
+          'relative border-2 border-dashed rounded-2xl p-7 text-center cursor-pointer transition-all duration-200 group',
           isDragOver
-            ? 'border-orange-500 bg-orange-500/5 shadow-lg shadow-orange-500/10 scale-[1.01]'
-            : 'border-zinc-800 bg-[#121215] hover:border-zinc-700 hover:bg-[#151518]'
+            ? 'border-orange-500 bg-orange-50/70 shadow-lg shadow-orange-500/10 scale-[1.01]'
+            : 'border-[#DDD2BD] bg-white hover:border-orange-500 hover:bg-orange-50/20 shadow-sm'
         )}
       >
         <input
@@ -246,29 +246,29 @@ export default function UploadZone({
             className={cn(
               'p-3.5 rounded-xl border transition-all duration-200',
               isDragOver
-                ? 'bg-orange-500/15 border-orange-500/30 text-orange-400'
-                : 'bg-zinc-900 border-zinc-800 text-zinc-400 group-hover:text-white group-hover:border-zinc-700'
+                ? 'bg-orange-600 text-white border-orange-600'
+                : 'bg-orange-50 border-orange-200 text-orange-600 group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600'
             )}
           >
             <Upload className="w-6 h-6" />
           </div>
 
           <div>
-            <p className="text-xs font-semibold text-white tracking-tight">
+            <p className="text-xs font-bold text-black tracking-tight">
               Drop invoices or receipts here
             </p>
-            <p className="text-[11px] text-zinc-400 mt-1">
+            <p className="text-[11px] text-stone-500 mt-1">
               or click to browse from device
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-[10px] text-zinc-500 pt-2 border-t border-zinc-800/80 w-full justify-center">
-            <span className="flex items-center gap-1 font-mono">
-              <FileText className="w-3 h-3 text-orange-400" /> PDF
+          <div className="flex items-center gap-2 text-[10px] text-stone-600 pt-2 border-t border-[#EAE4D8] w-full justify-center">
+            <span className="flex items-center gap-1 font-mono font-medium text-black">
+              <FileText className="w-3 h-3 text-orange-600" /> PDF
             </span>
             <span>•</span>
-            <span className="flex items-center gap-1 font-mono">
-              <ImageIcon className="w-3 h-3 text-zinc-400" /> PNG / JPEG / WEBP
+            <span className="flex items-center gap-1 font-mono font-medium text-black">
+              <ImageIcon className="w-3 h-3 text-orange-600" /> PNG / JPEG / WEBP
             </span>
           </div>
         </div>
@@ -280,34 +280,34 @@ export default function UploadZone({
           {queue.map((item) => (
             <div
               key={item.id}
-              className="bg-[#121215] border border-zinc-800/90 rounded-xl p-3 flex items-center gap-3 shadow-sm"
+              className="bg-white border border-[#EAE4D8] rounded-xl p-3 flex items-center gap-3 shadow-sm"
             >
               <div className="flex-shrink-0">
                 {item.status === 'processing' && (
-                  <Loader2 className="w-4 h-4 text-orange-400 animate-spin" />
+                  <Loader2 className="w-4 h-4 text-orange-600 animate-spin" />
                 )}
                 {item.status === 'done' && (
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 )}
                 {item.status === 'error' && (
-                  <XCircle className="w-4 h-4 text-rose-400" />
+                  <XCircle className="w-4 h-4 text-rose-600" />
                 )}
                 {item.status === 'queued' && (
-                  <div className="w-4 h-4 rounded-full border border-zinc-700" />
+                  <div className="w-4 h-4 rounded-full border-2 border-stone-300" />
                 )}
               </div>
 
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-zinc-200 truncate font-mono">
+                <p className="text-xs font-semibold text-black truncate font-mono">
                   {item.file.name}
                 </p>
                 {item.error && (
-                  <p className="text-[11px] text-rose-400 mt-0.5">{item.error}</p>
+                  <p className="text-[11px] text-rose-600 font-medium mt-0.5">{item.error}</p>
                 )}
                 {(item.status === 'processing' || item.status === 'queued') && (
-                  <div className="mt-1.5 h-1 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800">
+                  <div className="mt-1.5 h-1.5 bg-stone-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-orange-500 rounded-full transition-all duration-500 shadow-sm shadow-orange-500/50"
+                      className="h-full bg-orange-500 rounded-full transition-all duration-500 shadow-sm"
                       style={{ width: `${item.progress}%` }}
                     />
                   </div>
@@ -317,7 +317,7 @@ export default function UploadZone({
               {(item.status === 'done' || item.status === 'error') && (
                 <button
                   onClick={() => removeQueueItem(item.id)}
-                  className="p-1 hover:bg-zinc-800 rounded-lg text-zinc-500 hover:text-white transition-colors"
+                  className="p-1 hover:bg-stone-100 rounded-lg text-stone-500 hover:text-black transition-colors"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>

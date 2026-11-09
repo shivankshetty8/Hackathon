@@ -149,10 +149,10 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
     switch (doc.audit.status) {
       case 'MATCH':
         return {
-          bg: 'bg-emerald-500/5',
-          border: 'border-emerald-500/20',
-          text: 'text-emerald-400',
-          badgeBg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+          bg: 'bg-emerald-50/80',
+          border: 'border-emerald-300',
+          text: 'text-emerald-950',
+          badgeBg: 'bg-emerald-100 text-emerald-800 border-emerald-300',
           icon: CheckCircle2,
           label: 'Verified Match',
           headline: 'Verified Match — All line items, taxes, and totals reconcile to the cent.',
@@ -168,10 +168,10 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
             : `Undercharged by ${doc.currencySymbol}${Math.abs(mainDelta).toFixed(2)}`;
 
         return {
-          bg: 'bg-rose-500/5',
-          border: 'border-rose-500/20',
-          text: 'text-rose-400',
-          badgeBg: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
+          bg: 'bg-rose-50/90',
+          border: 'border-rose-300',
+          text: 'text-rose-950',
+          badgeBg: 'bg-rose-100 text-rose-800 border-rose-300',
           icon: XCircle,
           label: 'Discrepancy Detected',
           headline: `Discrepancy Detected — ${deltaText}. Expanding audit flags below.`,
@@ -179,10 +179,10 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
         };
       case 'WARNING':
         return {
-          bg: 'bg-orange-500/5',
-          border: 'border-orange-500/20',
-          text: 'text-orange-400',
-          badgeBg: 'bg-orange-500/10 text-orange-400 border-orange-500/30',
+          bg: 'bg-orange-50/90',
+          border: 'border-orange-300',
+          text: 'text-orange-950',
+          badgeBg: 'bg-orange-100 text-orange-800 border-orange-300',
           icon: AlertTriangle,
           label: 'Audit Warning',
           headline: 'Audit Warning — Calculation requires accounting review.',
@@ -201,9 +201,9 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
   return (
     <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 items-start">
       {/* Left Pane: Document Viewer (5 cols) */}
-      <div className="xl:col-span-5 bg-[#121215] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col shadow-xl">
+      <div className="xl:col-span-5 bg-white border border-[#EAE4D8] rounded-2xl overflow-hidden flex flex-col shadow-sm">
         {/* Metadata Badges Bar */}
-        <div className="p-3.5 border-b border-zinc-800/80 bg-zinc-950/60">
+        <div className="p-3.5 border-b border-[#EAE4D8] bg-[#FAF8F5]">
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             <MetaBadge icon={Building2} label="Vendor" value={doc.vendorName} />
             <MetaBadge icon={FileText} label="Doc #" value={doc.invoiceNumber} />
@@ -217,55 +217,55 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
             />
           </div>
           {doc.vendorAddress && (
-            <p className="text-[11px] text-zinc-500 mt-2 px-1 truncate font-mono">
-              <span className="text-zinc-400 font-sans">Address:</span> {doc.vendorAddress}
+            <p className="text-[11px] text-stone-600 mt-2 px-1 truncate font-mono">
+              <span className="text-black font-semibold font-sans">Address:</span> {doc.vendorAddress}
             </p>
           )}
         </div>
 
         {/* Viewer Controls */}
-        <div className="px-4 py-2 border-b border-zinc-800/80 bg-zinc-950/40 flex items-center justify-between">
+        <div className="px-4 py-2 border-b border-[#EAE4D8] bg-[#FAF8F5] flex items-center justify-between">
           <div className="flex items-center gap-1">
             <button
               onClick={handleZoomIn}
-              className="p-1.5 hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors"
+              className="p-1.5 hover:bg-stone-200 rounded-lg text-black transition-colors"
               title="Zoom in"
             >
               <ZoomIn className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={handleZoomOut}
-              className="p-1.5 hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors"
+              className="p-1.5 hover:bg-stone-200 rounded-lg text-black transition-colors"
               title="Zoom out"
             >
               <ZoomOut className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={handleRotate}
-              className="p-1.5 hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors"
+              className="p-1.5 hover:bg-stone-200 rounded-lg text-black transition-colors"
               title="Rotate"
             >
               <RotateCw className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={handleResetView}
-              className="p-1.5 hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors"
+              className="p-1.5 hover:bg-stone-200 rounded-lg text-black transition-colors"
               title="Reset"
             >
               <Maximize2 className="w-3.5 h-3.5" />
             </button>
-            <span className="text-[11px] font-mono text-zinc-400 ml-2">
+            <span className="text-[11px] font-mono font-semibold text-black ml-2">
               {Math.round(zoom * 100)}%
             </span>
           </div>
 
           <div className="flex items-center gap-2 text-xs">
             {zoom > 1 && (
-              <span className="flex items-center gap-1 text-[10px] text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded font-mono">
-                <Move className="w-2.5 h-2.5" /> Pan Active
+              <span className="flex items-center gap-1 text-[10px] text-orange-700 bg-orange-100 border border-orange-300 px-2 py-0.5 rounded font-mono font-semibold">
+                <Move className="w-2.5 h-2.5 text-orange-600" /> Pan Active
               </span>
             )}
-            <span className="bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded text-[11px] text-zinc-300 font-mono truncate max-w-[140px]">
+            <span className="bg-white border border-[#EAE4D8] px-2 py-0.5 rounded text-[11px] text-black font-mono font-medium truncate max-w-[140px] shadow-sm">
               {doc.fileName}
             </span>
           </div>
@@ -279,7 +279,7 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
           className={cn(
-            'relative overflow-hidden p-5 min-h-[500px] max-h-[660px] flex items-center justify-center bg-black select-none',
+            'relative overflow-hidden p-5 min-h-[500px] max-h-[660px] flex items-center justify-center bg-[#F5EFE1] select-none',
             zoom > 1 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-default'
           )}
         >
@@ -294,99 +294,97 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
               <img
                 src={doc.filePreviewUrl}
                 alt={doc.fileName}
-                className="max-w-full max-h-[620px] rounded-lg shadow-2xl object-contain pointer-events-none border border-zinc-800"
+                className="max-w-full max-h-[620px] rounded-lg shadow-xl object-contain pointer-events-none border border-[#EAE4D8] bg-white"
               />
             </div>
           ) : isPdf && doc.filePreviewUrl ? (
             <div
-              className="w-full h-[580px] rounded-lg overflow-hidden border border-zinc-800 shadow-2xl"
+              className="w-full h-[600px] transition-transform duration-100 ease-out"
               style={{
                 transform: `scale(${zoom}) rotate(${rotation}deg)`,
                 transformOrigin: 'center center',
               }}
             >
               <iframe
-                src={doc.filePreviewUrl}
-                title={doc.fileName}
-                className="w-full h-full border-0 rounded-lg"
+                src={`${doc.filePreviewUrl}#toolbar=0&navpanes=0`}
+                className="w-full h-full rounded-lg shadow-xl border border-[#EAE4D8] bg-white"
+                title="PDF Preview"
               />
             </div>
           ) : (
-            /* Executive Financial Document Facsimile (When file-less demo or text-only) */
-            <div
-              className="transition-transform duration-100 ease-out w-full max-w-[440px]"
-              style={{
-                transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom}) rotate(${rotation}deg)`,
-                transformOrigin: 'center center',
-              }}
-            >
+            /* Executive Financial Document Facsimile (Clean White/Cream Table) */
+            <div className="w-full max-w-md">
               <DocumentFacsimile doc={doc} statusConfig={statusConfig} />
             </div>
           )}
         </div>
       </div>
 
-      {/* Right Pane: Editable Table & Reconciliation Card (7 cols) */}
-      <div className="xl:col-span-7 bg-[#121215] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col shadow-xl">
-        {/* Modern Audit Status Banner */}
-        <div className={cn('p-4 border-b transition-colors', statusConfig.bg, statusConfig.border)}>
+      {/* Right Pane: Editable Table & Reconciliation Workbench (7 cols) */}
+      <div className="xl:col-span-7 bg-white border border-[#EAE4D8] rounded-2xl overflow-hidden flex flex-col shadow-sm">
+        {/* Audit Status Banner */}
+        <div className={cn('p-4 border-b', statusConfig.bg, statusConfig.border)}>
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
-              <div className="mt-0.5 p-1 rounded-md bg-black/40 border border-zinc-800">
-                <StatusIcon className={cn('w-4 h-4 flex-shrink-0', statusConfig.text)} />
+              <div className="p-2 rounded-xl bg-white border border-current shadow-sm mt-0.5">
+                <StatusIcon className="w-5 h-5 text-current" />
               </div>
               <div>
-                <h3 className={cn('font-semibold text-xs tracking-tight', statusConfig.text)}>
-                  {statusConfig.headline}
-                </h3>
-                <p className="text-[11px] text-zinc-400 mt-0.5 leading-relaxed">
+                <div className="flex items-center gap-2">
+                  <h3 className={cn('text-sm font-bold tracking-tight', statusConfig.text)}>
+                    {statusConfig.headline}
+                  </h3>
+                  <span
+                    className={cn(
+                      'text-[10px] font-bold px-2 py-0.5 rounded border uppercase font-mono tracking-wider shadow-sm',
+                      statusConfig.badgeBg
+                    )}
+                  >
+                    {statusConfig.label}
+                  </span>
+                </div>
+                <p className="text-xs text-stone-700 mt-1 leading-relaxed">
                   {statusConfig.description}
                 </p>
               </div>
             </div>
-            <span
-              className={cn(
-                'px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-md border font-mono',
-                statusConfig.badgeBg
-              )}
-            >
-              {doc.audit.status}
-            </span>
           </div>
 
-          {/* Audit Flags List */}
+          {/* Audit Flags Details */}
           {doc.audit.flags.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-zinc-800/80 space-y-1.5">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
-                Audit Discrepancy Findings ({doc.audit.flags.length}):
+            <div className="mt-3 pt-3 border-t border-black/10 space-y-1.5">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-black">
+                Forensic Audit Findings ({doc.audit.flags.length})
               </p>
-              {doc.audit.flags.map((flag, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-2 bg-black/60 rounded-lg p-2 text-xs border border-zinc-800/80"
-                >
-                  <Info className={cn('w-3.5 h-3.5 mt-0.5 flex-shrink-0', statusConfig.text)} />
-                  <span className="font-mono text-zinc-300 text-[11px] leading-relaxed">{flag}</span>
-                </div>
-              ))}
+              <div className="space-y-1">
+                {doc.audit.flags.map((flag, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 text-xs font-mono px-2.5 py-1.5 rounded-lg bg-white/80 border border-current shadow-sm"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-600 flex-shrink-0" />
+                    <span className="text-stone-900 font-medium">{flag}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
-          {/* Auto-fix Notification Toast */}
+          {/* Auto-Fix Toast Notification */}
           {fixNotification && (
-            <div className="mt-2.5 p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-300 text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-              <span>{fixNotification}</span>
+            <div className="mt-2.5 p-2.5 bg-emerald-100 border border-emerald-300 text-emerald-900 rounded-xl text-xs flex items-center gap-2 shadow-sm animate-in fade-in">
+              <Sparkles className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+              <span className="font-medium">{fixNotification}</span>
             </div>
           )}
         </div>
 
         {/* Workbench Action Toolbar */}
-        <div className="px-4 py-2.5 border-b border-zinc-800/80 bg-zinc-950/40 flex items-center justify-between">
+        <div className="px-4 py-2.5 border-b border-[#EAE4D8] bg-[#FAF8F5] flex items-center justify-between">
           <div className="flex items-center gap-2">
             <button
               onClick={addLineItem}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700/80 hover:border-zinc-600 rounded-xl transition-all shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold bg-black hover:bg-stone-800 text-white rounded-xl transition-all shadow-sm"
             >
               <Plus className="w-3.5 h-3.5 text-orange-400" />
               Add Line Item
@@ -395,7 +393,7 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
             {doc.audit.status === 'DISCREPANCY' && (
               <button
                 onClick={handleAutoFix}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold bg-orange-600 hover:bg-orange-500 text-white rounded-xl transition-all shadow-md shadow-orange-600/25"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold bg-orange-600 hover:bg-orange-500 text-white rounded-xl transition-all shadow-md shadow-orange-600/20"
               >
                 <Wand2 className="w-3.5 h-3.5" />
                 Auto-Fix Printed Totals
@@ -403,17 +401,17 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
             )}
           </div>
 
-          <div className="text-xs text-zinc-400 font-mono">
-            <span className="text-white font-semibold">{doc.lineItems.length}</span> items
+          <div className="text-xs text-stone-600 font-mono">
+            <span className="text-black font-bold">{doc.lineItems.length}</span> items
           </div>
         </div>
 
         {/* Interactive Editable Data Table */}
         <div className="overflow-x-auto max-h-[380px] overflow-y-auto">
           <table className="w-full text-left text-xs">
-            <thead className="sticky top-0 z-10 bg-zinc-950 border-b border-zinc-800 text-zinc-400 font-semibold tracking-wider uppercase text-[10px]">
+            <thead className="sticky top-0 z-10 bg-[#FAF8F5] border-b border-[#EAE4D8] text-stone-700 font-bold tracking-wider uppercase text-[10px]">
               <tr>
-                <th className="px-3 py-2.5 w-8 text-center text-zinc-500">#</th>
+                <th className="px-3 py-2.5 w-8 text-center text-stone-500">#</th>
                 <th className="px-3 py-2.5 min-w-[160px]">Description</th>
                 <th className="px-3 py-2.5 min-w-[150px]">Category</th>
                 <th className="px-3 py-2.5 w-16 text-right">Qty</th>
@@ -424,7 +422,7 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
                 <th className="px-3 py-2.5 w-10 text-center"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-800/60 font-mono">
+            <tbody className="divide-y divide-[#EAE4D8] font-mono">
               {doc.lineItems.map((item, index) => (
                 <LineItemRow
                   key={item.id}
@@ -440,18 +438,18 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
         </div>
 
         {/* Summary Comparison Footer */}
-        <div className="border-t border-zinc-800 p-4 bg-zinc-950/70 space-y-2.5">
+        <div className="border-t border-[#EAE4D8] p-4 bg-[#FAF8F5] space-y-2.5">
           <div className="flex items-center justify-between mb-1">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-black uppercase tracking-wider">
               Reconciliation Summary
             </h4>
-            <span className="text-[10px] text-zinc-500 font-mono">
+            <span className="text-[10px] text-stone-600 font-mono">
               Audited vs. Printed
             </span>
           </div>
 
           {/* Column Headers for Summary */}
-          <div className="grid grid-cols-[1fr,110px,110px,100px] gap-2 px-2 text-[10px] uppercase tracking-wider text-zinc-400 font-semibold">
+          <div className="grid grid-cols-[1fr,110px,110px,100px] gap-2 px-2 text-[10px] uppercase tracking-wider text-stone-700 font-bold">
             <span>Metric</span>
             <span className="text-right">Printed</span>
             <span className="text-right">Audited</span>
@@ -489,7 +487,7 @@ export default function AuditWorkbench({ document: doc, onDocumentUpdate }: Audi
               onPrintedChange={(v) => updateField('extractedShipping', v)}
             />
 
-            <div className="pt-2 border-t border-zinc-800/80">
+            <div className="pt-2 border-t border-[#EAE4D8]">
               <SummaryRow
                 label="Grand Total"
                 printed={doc.extractedGrandTotal}
@@ -522,20 +520,20 @@ function MetaBadge({
   return (
     <div
       className={cn(
-        'border rounded-xl p-2.5 transition-colors',
+        'border rounded-xl p-2.5 transition-colors shadow-sm',
         highlight
-          ? 'bg-orange-500/10 border-orange-500/30 text-orange-300'
-          : 'bg-[#121215] border-zinc-800'
+          ? 'bg-orange-50 border-orange-300 text-orange-900'
+          : 'bg-white border-[#EAE4D8]'
       )}
     >
-      <div className="flex items-center gap-1.5 text-zinc-400 text-[10px] uppercase font-semibold tracking-wider">
-        <Icon className={cn('w-3 h-3', highlight ? 'text-orange-400' : 'text-zinc-400')} />
+      <div className="flex items-center gap-1.5 text-stone-600 text-[10px] uppercase font-bold tracking-wider">
+        <Icon className={cn('w-3 h-3', highlight ? 'text-orange-600' : 'text-stone-700')} />
         <span>{label}</span>
       </div>
       <p
         className={cn(
-          'text-xs font-semibold truncate mt-1',
-          highlight ? 'text-orange-300 font-mono' : 'text-white'
+          'text-xs font-bold truncate mt-1',
+          highlight ? 'text-orange-700 font-mono' : 'text-black'
         )}
         title={value}
       >
@@ -566,10 +564,10 @@ function LineItemRow({
     <tr
       className={cn(
         'group transition-colors',
-        item.hasLineDiscrepancy ? 'bg-rose-500/5 hover:bg-rose-500/10' : 'hover:bg-zinc-900/40'
+        item.hasLineDiscrepancy ? 'bg-rose-50/70 hover:bg-rose-50' : 'hover:bg-orange-50/25'
       )}
     >
-      <td className="px-3 py-2 text-center text-zinc-500 text-xs">
+      <td className="px-3 py-2 text-center text-stone-500 text-xs">
         {index + 1}
       </td>
 
@@ -579,7 +577,7 @@ function LineItemRow({
           type="text"
           value={item.description}
           onChange={(e) => onUpdate(item.id, 'description', e.target.value)}
-          className="w-full bg-transparent text-white text-xs border border-transparent hover:border-zinc-700 focus:border-orange-500 focus:bg-zinc-950 rounded-lg px-2 py-1 outline-none transition-colors"
+          className="w-full bg-transparent text-black text-xs font-medium border border-transparent hover:border-stone-300 focus:border-orange-500 focus:bg-white rounded-lg px-2 py-1 outline-none transition-colors"
         />
       </td>
 
@@ -591,7 +589,7 @@ function LineItemRow({
             onChange={(e) =>
               onUpdate(item.id, 'category', e.target.value as ExpenseCategory)
             }
-            className="w-full bg-zinc-900 text-zinc-200 text-[11px] border border-zinc-800 rounded-lg px-2 py-1 appearance-none cursor-pointer focus:border-orange-500 outline-none pr-6 truncate"
+            className="w-full bg-white text-black text-[11px] font-medium border border-[#EAE4D8] rounded-lg px-2 py-1 appearance-none cursor-pointer focus:border-orange-500 outline-none pr-6 truncate shadow-sm"
           >
             {EXPENSE_CATEGORIES.map((cat) => (
               <option key={cat} value={cat}>
@@ -599,7 +597,7 @@ function LineItemRow({
               </option>
             ))}
           </select>
-          <ChevronDown className="w-3 h-3 text-zinc-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <ChevronDown className="w-3 h-3 text-stone-500 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
       </td>
 
@@ -611,7 +609,7 @@ function LineItemRow({
           min={0}
           step={1}
           onChange={(e) => onUpdate(item.id, 'quantity', parseFloat(e.target.value) || 0)}
-          className="w-14 bg-transparent text-white text-xs text-right border border-transparent hover:border-zinc-700 focus:border-orange-500 focus:bg-zinc-950 rounded-lg px-1.5 py-1 outline-none transition-colors"
+          className="w-14 bg-transparent text-black text-xs font-semibold text-right border border-transparent hover:border-stone-300 focus:border-orange-500 focus:bg-white rounded-lg px-1.5 py-1 outline-none transition-colors"
         />
       </td>
 
@@ -623,7 +621,7 @@ function LineItemRow({
           min={0}
           step={0.01}
           onChange={(e) => onUpdate(item.id, 'unitPrice', parseFloat(e.target.value) || 0)}
-          className="w-20 bg-transparent text-white text-xs text-right border border-transparent hover:border-zinc-700 focus:border-orange-500 focus:bg-zinc-950 rounded-lg px-1.5 py-1 outline-none transition-colors"
+          className="w-20 bg-transparent text-black text-xs font-semibold text-right border border-transparent hover:border-stone-300 focus:border-orange-500 focus:bg-white rounded-lg px-1.5 py-1 outline-none transition-colors"
         />
       </td>
 
@@ -640,14 +638,14 @@ function LineItemRow({
           className={cn(
             'w-24 bg-transparent text-xs text-right font-bold border rounded-lg px-1.5 py-1 outline-none transition-colors',
             item.hasLineDiscrepancy
-              ? 'border-rose-500/50 text-rose-400 bg-rose-500/10 focus:border-rose-400'
-              : 'border-transparent hover:border-zinc-700 focus:border-orange-500 focus:bg-zinc-950 text-white'
+              ? 'border-rose-400 text-rose-700 bg-rose-100/60 focus:border-rose-500'
+              : 'border-transparent hover:border-stone-300 focus:border-orange-500 focus:bg-white text-black'
           )}
         />
       </td>
 
       {/* Audited Total */}
-      <td className="px-3 py-2 text-right font-bold text-zinc-200">
+      <td className="px-3 py-2 text-right font-bold text-black">
         {currencySymbol}
         {item.calculatedAmount.toFixed(2)}
       </td>
@@ -656,30 +654,30 @@ function LineItemRow({
       <td className="px-3 py-2 text-center">
         {item.hasLineDiscrepancy ? (
           <div className="relative group/tip inline-flex">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-rose-500/15 text-rose-400 border border-rose-500/30 text-[10px] font-bold rounded cursor-help">
-              <XCircle className="w-3 h-3 text-rose-400" />
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-rose-100 text-rose-800 border border-rose-300 text-[10px] font-bold rounded cursor-help shadow-sm">
+              <XCircle className="w-3 h-3 text-rose-600" />
               ERR
             </span>
-            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover/tip:flex flex-col z-30 bg-zinc-950 border border-rose-500/40 rounded-xl p-2.5 shadow-2xl text-[11px] whitespace-nowrap min-w-[200px] text-left">
-              <div className="text-rose-400 font-bold mb-1 flex items-center gap-1">
-                <AlertTriangle className="w-3 h-3" /> Math Discrepancy
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover/tip:flex flex-col z-30 bg-white border border-rose-300 rounded-xl p-3 shadow-xl text-[11px] whitespace-nowrap min-w-[210px] text-left">
+              <div className="text-rose-700 font-bold mb-1 flex items-center gap-1">
+                <AlertTriangle className="w-3.5 h-3.5" /> Math Discrepancy
               </div>
-              <div className="text-zinc-300">
+              <div className="text-stone-700">
                 Qty ({item.quantity}) × Rate (${item.unitPrice.toFixed(2)})
               </div>
-              <div className="text-emerald-400 font-bold">
+              <div className="text-emerald-700 font-bold">
                 Calculated: ${item.calculatedAmount.toFixed(2)}
               </div>
-              <div className="text-rose-400">
+              <div className="text-rose-700 font-medium">
                 Printed: ${item.extractedAmount.toFixed(2)}
               </div>
-              <div className="text-orange-400 font-semibold pt-1 border-t border-zinc-800 mt-1">
+              <div className="text-orange-700 font-bold pt-1 border-t border-[#EAE4D8] mt-1">
                 Delta: {diff > 0 ? '+' : ''}${diff.toFixed(2)}
               </div>
             </div>
           </div>
         ) : (
-          <span className="inline-flex items-center gap-1 text-emerald-400" title="Calculations Match">
+          <span className="inline-flex items-center gap-1 text-emerald-600" title="Calculations Match">
             <CheckCircle2 className="w-4 h-4 mx-auto" />
           </span>
         )}
@@ -689,7 +687,7 @@ function LineItemRow({
       <td className="px-3 py-2 text-center">
         <button
           onClick={() => onDelete(item.id)}
-          className="p-1 text-zinc-600 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+          className="p-1 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
           title="Delete row"
         >
           <Trash2 className="w-3.5 h-3.5" />
@@ -725,13 +723,13 @@ function SummaryRow({
     <div
       className={cn(
         'grid grid-cols-[1fr,110px,110px,100px] gap-2 items-center px-2 py-1 rounded-lg transition-colors',
-        hasMismatch ? 'bg-rose-500/10 border border-rose-500/25' : 'hover:bg-zinc-900/60'
+        hasMismatch ? 'bg-rose-50 border border-rose-300' : 'hover:bg-orange-50/20'
       )}
     >
       <span
         className={cn(
           'text-xs font-sans',
-          isBold ? 'font-bold text-white text-sm' : 'text-zinc-400'
+          isBold ? 'font-bold text-black text-sm' : 'text-stone-700 font-medium'
         )}
       >
         {label}
@@ -747,10 +745,10 @@ function SummaryRow({
           className={cn(
             'w-full bg-transparent text-right border rounded px-1.5 py-0.5 outline-none transition-colors text-xs font-mono',
             hasMismatch
-              ? 'border-rose-500/40 text-rose-400 font-bold bg-rose-500/10'
+              ? 'border-rose-400 text-rose-700 font-bold bg-white'
               : isBold
-              ? 'border-transparent font-bold text-white'
-              : 'border-transparent text-zinc-300 hover:border-zinc-700'
+              ? 'border-transparent font-bold text-black'
+              : 'border-transparent text-black hover:border-stone-300 focus:border-orange-500 focus:bg-white'
           )}
         />
       </div>
@@ -759,7 +757,7 @@ function SummaryRow({
       <span
         className={cn(
           'text-right font-mono text-xs',
-          isBold ? 'font-bold text-emerald-400 text-sm' : 'text-zinc-300'
+          isBold ? 'font-bold text-emerald-700 text-sm' : 'text-black font-semibold'
         )}
       >
         {isNegative ? '-' : ''}
@@ -772,10 +770,10 @@ function SummaryRow({
         {hasMismatch ? (
           <span
             className={cn(
-              'inline-block px-1.5 py-0.5 rounded text-[11px]',
+              'inline-block px-1.5 py-0.5 rounded text-[11px] shadow-sm font-bold',
               delta > 0
-                ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
-                : 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
+                ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                : 'bg-orange-100 text-orange-800 border border-orange-300'
             )}
           >
             {delta > 0 ? '+' : ''}
@@ -783,8 +781,8 @@ function SummaryRow({
             {delta.toFixed(2)}
           </span>
         ) : (
-          <span className="text-emerald-400 inline-flex items-center gap-1 text-[11px]">
-            <CheckCircle2 className="w-3 h-3" /> MATCH
+          <span className="text-emerald-700 font-bold inline-flex items-center gap-1 text-[11px]">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> MATCH
           </span>
         )}
       </div>
@@ -806,33 +804,33 @@ function DocumentFacsimile({
   };
 }) {
   return (
-    <div className="bg-[#121215] border border-zinc-800 rounded-2xl p-6 shadow-2xl text-zinc-300 font-sans text-xs space-y-4 relative">
+    <div className="bg-white border border-[#EAE4D8] rounded-2xl p-6 shadow-md text-stone-800 font-sans text-xs space-y-4 relative">
       {/* Document Header */}
-      <div className="border-b border-zinc-800 pb-4 flex items-start justify-between">
+      <div className="border-b border-[#EAE4D8] pb-4 flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-sm font-bold text-white tracking-tight">
+            <h2 className="text-sm font-bold text-black tracking-tight">
               {doc.vendorName}
             </h2>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-800 font-bold">
               {doc.invoiceNumber}
             </span>
           </div>
           {doc.vendorAddress && (
-            <p className="text-[11px] text-zinc-500 mt-0.5 font-mono">{doc.vendorAddress}</p>
+            <p className="text-[11px] text-stone-600 mt-0.5 font-mono">{doc.vendorAddress}</p>
           )}
         </div>
 
-        <div className="text-right font-mono text-[11px] text-zinc-400">
-          <div>Date: <span className="text-white font-semibold">{doc.invoiceDate}</span></div>
-          {doc.dueDate && <div>Due: <span className="text-zinc-300">{doc.dueDate}</span></div>}
+        <div className="text-right font-mono text-[11px] text-stone-700">
+          <div>Date: <span className="text-black font-bold">{doc.invoiceDate}</span></div>
+          {doc.dueDate && <div>Due: <span className="text-stone-700">{doc.dueDate}</span></div>}
         </div>
       </div>
 
       {/* Itemized Line Items Table */}
-      <div className="border border-zinc-800 rounded-xl overflow-hidden font-mono text-[11px]">
+      <div className="border border-[#EAE4D8] rounded-xl overflow-hidden font-mono text-[11px]">
         <table className="w-full text-left">
-          <thead className="bg-zinc-950 text-zinc-400 uppercase text-[10px] border-b border-zinc-800">
+          <thead className="bg-[#FAF8F5] text-stone-700 font-bold uppercase text-[10px] border-b border-[#EAE4D8]">
             <tr>
               <th className="p-2.5">Item</th>
               <th className="p-2.5 text-right">Qty</th>
@@ -840,12 +838,12 @@ function DocumentFacsimile({
               <th className="p-2.5 text-right">Printed</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-800/60">
+          <tbody className="divide-y divide-[#EAE4D8]">
             {doc.lineItems.map((item, idx) => (
               <tr
                 key={idx}
                 className={cn(
-                  item.hasLineDiscrepancy ? 'bg-rose-500/10 text-rose-300 font-semibold' : 'text-zinc-300'
+                  item.hasLineDiscrepancy ? 'bg-rose-50 text-rose-800 font-bold' : 'text-black'
                 )}
               >
                 <td className="p-2.5 truncate max-w-[170px]">{item.description}</td>
@@ -863,29 +861,29 @@ function DocumentFacsimile({
 
       {/* Financial Summary */}
       <div className="space-y-1.5 text-right text-xs font-mono pt-1">
-        <div className="flex justify-between text-zinc-400">
+        <div className="flex justify-between text-stone-700">
           <span>Printed Subtotal:</span>
-          <span className="text-zinc-200">${doc.extractedSubtotal.toFixed(2)}</span>
+          <span className="text-black font-semibold">${doc.extractedSubtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-zinc-400">
+        <div className="flex justify-between text-stone-700">
           <span>Printed Tax:</span>
-          <span className="text-zinc-200">${doc.extractedTax.toFixed(2)}</span>
+          <span className="text-black font-semibold">${doc.extractedTax.toFixed(2)}</span>
         </div>
         {doc.extractedDiscount > 0 && (
-          <div className="flex justify-between text-zinc-400">
+          <div className="flex justify-between text-stone-700">
             <span>Discount:</span>
-            <span className="text-emerald-400">-${doc.extractedDiscount.toFixed(2)}</span>
+            <span className="text-emerald-700 font-semibold">-${doc.extractedDiscount.toFixed(2)}</span>
           </div>
         )}
         {doc.extractedShipping > 0 && (
-          <div className="flex justify-between text-zinc-400">
+          <div className="flex justify-between text-stone-700">
             <span>Shipping:</span>
-            <span className="text-zinc-200">+${doc.extractedShipping.toFixed(2)}</span>
+            <span className="text-black font-semibold">+${doc.extractedShipping.toFixed(2)}</span>
           </div>
         )}
-        <div className="flex justify-between text-white font-bold text-sm pt-2 border-t border-zinc-800">
+        <div className="flex justify-between text-black font-bold text-sm pt-2 border-t border-[#EAE4D8]">
           <span>Grand Total Due:</span>
-          <span className="text-orange-400">${doc.extractedGrandTotal.toFixed(2)}</span>
+          <span className="text-orange-600 font-bold">${doc.extractedGrandTotal.toFixed(2)}</span>
         </div>
       </div>
     </div>
